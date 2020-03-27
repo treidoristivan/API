@@ -5,7 +5,7 @@ const mysql = require('../dbconfig')
 const {auth, restaurant} = require('../middleware')
 const {detail,add,dlt,edit}= require('../model/item')
 
-const url = `http://localhost:3000/item/`
+const url = `http://54.235.235.145:3000/item/`
 
 
 const multer = require('multer')

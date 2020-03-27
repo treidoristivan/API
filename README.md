@@ -29,14 +29,14 @@ Express.js is a web application framework for Node.js. [More about Express](http
 ## Set up .env file
 Open .env file on your favorite code editor, and copy paste this code below :
 ```
+DB_SERVER=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_DATABASE=food_delivery
+
+APP_KEY=Adminfood
 PORT=3000
 
-HOST=localhost
-USER=root 
-PASS= 
-
-DATABASE=food_delivery
-APP_KEY=Adminfood
 
 NODE_ENV=development node server.js
 ```

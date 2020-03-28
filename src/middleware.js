@@ -17,7 +17,7 @@ const auth = (req,res,next)=>{
                 }else if (result.length > 0) {
                     res.send({
                         success: false,
-                        msg : 'Session Expired'
+                        msg : 'Session Expired, Please Sign In'
                     })
                 } else {
             try{
@@ -30,7 +30,7 @@ const auth = (req,res,next)=>{
         }
     })
     }else{
-            res.send({succes:false,msg:'You Must be Log In First'})
+            res.send({succes:false,msg:'You Must be Sign In First'})
         }
 }
 

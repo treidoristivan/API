@@ -86,7 +86,7 @@ router.post('/registuser',(req,res)=>{
         else {
             res.send({
                 status: 400,
-                msg: 'Username already used.',
+                msg: 'Username already Exists.',
             })
         }
     })

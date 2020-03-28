@@ -1,39 +1,37 @@
-require('dotenv').config()
+require('dotenv').config();
+const express = require('express'),
+  cors = require('cors'),
+  path = require('path'),
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  morgan = require('morgan'),
+  compression = require('compression'),
+  bodyParser = require('body-parser'),
+  // expressValidator = require('express-validator'),
+  responseTime = require('response-time'),
+  router = require('./Routes'),
+  port = process.env.APP_PORT || 8001;
 
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const {auth} = require('./src/middleware')
+const app = express();
 
-const user = require('./src/routes/user')
-const restaurant = require('./src/routes/restaurant')
-const item = require('./src/routes/item')
-const cart = require('./src/routes/cart')
-const categories = require('./src/routes/categories')
-const valuation = require('./src/routes/valuation')
-const search = require('./src/routes/search')
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+// app.use(expressValidator());
+app.use(cors());
+app.use(responseTime());
+app.use(compression());
+app.use(`/api/v${process.env.API_VERSION}`, router);
+app.use('/images', express.static(path.join(__dirname, 'Public/Image')));
+app.use('/icons', express.static(path.join(__dirname, 'Public/Icon')));
+app.use(express.static(path.join(__dirname, 'Client/build')));
 
-const app = express()
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(`${__dirname}/Client/build/index.html`));
+});
 
-app.use(bodyParser.urlencoded({extended:false}))
-app.use('/src/images',express.static('src/images/item'))
-app.use('/src/images',express.static('src/images/restaurant'))
-app.use('/src/images',express.static('src/images/categories'))
-
-app.use(bodyParser.json())
-app.use(cors())
-app.use('/user',user)
-app.use('/restaurant',restaurant)
-app.use('/item',item)
-app.use('/cart',cart)
-app.use('/categories',categories)
-app.use('/valuation',valuation)
-app.use('/search',search)
-
-
-
-const port = process.env.PORT
-
-app.listen(port,()=>{
-    console.log('===> Connected on Port '+ port+ ' <===')
-})
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log('===>>> Connected ===>>> ', port);
+});

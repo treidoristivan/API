@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOption = {
-  from: 'fodel@gmail.com',
+  from: 'bookfooddelivery@gmail.com',
   to: '',
   subject: '',
   html: '<p>Placeholder</p>'
